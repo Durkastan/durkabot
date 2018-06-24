@@ -26,9 +26,9 @@ class BookSite:
 
         e = discord.Embed(title='Search Results', url=search_url)
         for result in results:
-            value = (f"by {result.author_name}\n"
-                     + (f"[Link on archive.org]({result.link}), " if result.link is not None else '')
-                     + (f"[link on waqfeya.com]({result.site_link})" if result.site_link is not None else ''))
-            e.add_field(name=result.title, value=value)
+            value = (f"لـ {result.author_name}\n"
+                     + (f"[---]({result.link}) :الرابط على موقع ارشيف\n" if result.link is not None else '')
+                     + (f"[---]({result.site_link}) :الرابط على موقع وقفية\n" if result.site_link is not None else ''))
+            e.add_field(name=result.title, value=value, inline=False)
 
         return e

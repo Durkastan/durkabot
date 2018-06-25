@@ -1,1 +1,4 @@
 git+git://github.com/Rapptz/discord.py@rewrite#egg=discord-py
+pytest
+pytest-asyncio
+beautifulsoup4

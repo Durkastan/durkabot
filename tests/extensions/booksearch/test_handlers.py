@@ -103,8 +103,9 @@ class TestWaqfeyaHandler:
         }
 
         for filename, bookls in test_table.items():
+            # Notice that the webpages are encoded in windows-1256, which is why we're loading it as such
             with open(filename, 'r', encoding='windows-1256') as f:
-                soup = BeautifulSoup(f.read(), 'html.parser', from_encoding='windows-1256')
+                soup = BeautifulSoup(f.read(), 'html.parser')
 
             results = soup.find_all('span', attrs={'class': 'postbody'})[2:-1]
 
@@ -113,6 +114,7 @@ class TestWaqfeyaHandler:
                 bd = wh.process_result(result)
                 assert bd is not None
                 bd2 = bookls[index]
+                assert bd == bd2
                 assert bd.title == bd2.title
                 assert bd.author_name == bd2.author_name
                 assert bd.link == bd2.link
@@ -133,10 +135,10 @@ class TestWaqfeyaHandler:
         }
 
         with open('res/search_sample.html', 'r', encoding='windows-1256') as f:
-            sample = f.read()
+            bs = BeautifulSoup(f.read(), 'html.parser')
 
         async def _fetch(url):
-            return BeautifulSoup(sample, 'html.parser', from_encoding='windows-1256')
+            return bs
 
         for (query, tag), expected_url in test_table.items():
 

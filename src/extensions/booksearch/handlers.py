@@ -23,6 +23,7 @@ class WaqfeyaHandler:
     def __init__(self, loop):
         self.session = aiohttp.ClientSession(loop=loop)
 
+    # Waqfeya.com is using windows-1256, so you'll want to decode it as such
     async def _fetch(self, url):
         async with self.session.get(url) as r:
             return BeautifulSoup(await r.text(encoding='windows-1256'), 'html.parser')

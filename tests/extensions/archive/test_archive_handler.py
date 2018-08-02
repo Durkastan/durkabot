@@ -1,6 +1,8 @@
 import json
+from unittest.mock import MagicMock
 
 import pytest
+from aiohttp import ClientResponse
 
 from extensions.archive.archive_handler import ArchiveHandler
 from extensions.archive.archive_result import ArchiveResult
@@ -9,6 +11,13 @@ from extensions.archive.archive_result import ArchiveResult
 @pytest.mark.asyncio
 async def test_archive_archives_website_returns_result(event_loop):
     ah = ArchiveHandler(event_loop)
+
+    async def _fetch(url, headers):
+        with open('res/archive.org_header_sample.json', 'r') as f:
+            headers = json.load(f)
+        return MagicMock(spec=ClientResponse, headers=headers)
+
+    ah._fetch = _fetch
     result = await ah.archive('http://www.example.com/')
 
     assert result is not None

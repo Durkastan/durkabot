@@ -76,3 +76,13 @@ class WaqfeyaHandler:
         site_link = self.domain + link_element.get('href')
 
         return BookData(title, author, link, site_link)
+
+    @staticmethod
+    def format_result(bookdata):
+        title = bookdata.title
+        subtext = (
+                f"لـ {bookdata.author_name}\n"
+                + (f"[---]({bookdata.link}) :الرابط على موقع ارشيف\n" if bookdata.link is not None else '')
+                + (f"[---]({bookdata.site_link}) :الرابط على موقع وقفية\n" if bookdata.site_link is not None else '')
+        )
+        return title, subtext

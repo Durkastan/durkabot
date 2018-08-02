@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.7
 
 # The ARG instruction defines a variable 
 # that users can pass at build-time to the builder with the 

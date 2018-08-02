@@ -81,6 +81,7 @@ async def test_search_returns_embed_with_results(ctx):
         return bookls, search_url
 
     b.handler.search = search
+    b.handler.format_result = WaqfeyaHandler.format_result
 
     embed = await b.search('fake query', None)
 

@@ -8,7 +8,12 @@ ARG discord_token
 
 ENV DISCORD_TOKEN=$discord_token
 
-# assuming we're running in the root dir
+# workaround for uninvalidated cache
+# see: https://stackoverflow.com/a/39278224/9947275
+ADD https://api.github.com/repos/Durkastan/durkabot/git/refs/heads/development version.json
+
+RUN git clone https://github.com/Durkastan/durkabot.git && cd durkabot && git checkout development
+
 ADD ./src .
 ADD requirements.txt .
 

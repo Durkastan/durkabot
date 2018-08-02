@@ -9,6 +9,14 @@ from discord.ext.commands import UserInputError, MissingPermissions, BotMissingP
 from util import get_prefix
 
 
+logger = logging.getLogger('durkabot')
+
+handler = logging.StreamHandler()
+handler.setLevel(logging.INFO)
+
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
 EXTENSIONS_DIR = "extensions"
 
 DESCRIPTION = """DURKA DURKA"""
@@ -23,6 +31,8 @@ class Bot(commands.Bot):
             loop=asyncio.new_event_loop(),
         )
 
+        self.logger = logger
+
     async def on_ready(self):
         print(self.user.name, ' : ', self.user.id)
 
@@ -31,7 +41,7 @@ class Bot(commands.Bot):
         await self.change_presence(status='online')
 
     def _load_cogs(self):
-        logging.info('Loading cogs...')
+        self.logger.info('Loading cogs...')
         for i in os.listdir(EXTENSIONS_DIR):
             extension_dir = os.path.join(EXTENSIONS_DIR, i)
             if os.path.isdir(extension_dir):
@@ -39,8 +49,8 @@ class Bot(commands.Bot):
                     try:
                         self.load_extension(f"{EXTENSIONS_DIR}.{i}")
                     except Exception:
-                        logging.error(f'Error loading {i}: {traceback.format_exc()}')
-        logging.info('Loaded.')
+                        self.logger.error(f'Error loading {i}: {traceback.format_exc()}')
+        self.logger.info('Loaded.')
 
     async def on_command_error(self, ctx, exception):
         """Report an error if user uses command incorrectly, or in case of missing permissions."""
@@ -55,7 +65,7 @@ def main():
         try:
             Bot().run(os.environ.get('DISCORD_TOKEN'))
         except Exception:
-            logging.error(traceback.format_exc())
+            logging.critical(traceback.format_exc())
 
 
 if __name__ == '__main__':

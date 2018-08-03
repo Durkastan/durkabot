@@ -76,7 +76,6 @@ class WaqfeyaHandler:
         site_link = self.domain + link_element.get('href')
 
         return BookData(title, author, link, site_link)
-
     @staticmethod
     def format_result(bookdata):
         title = bookdata.title

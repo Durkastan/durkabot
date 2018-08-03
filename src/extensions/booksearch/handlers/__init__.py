@@ -1,0 +1,1 @@
+from extensions.booksearch.handlers.waqfeya_handler import WaqfeyaHandler

@@ -44,15 +44,15 @@ def test_process_result_parses_tag_and_returns_bookdata(bookls1, bookls2):
 @pytest.mark.asyncio
 async def test_search_searches_query(ctx):
     test_table = {
-        ('صحيح البخاري', ''): 'http://waqfeya.com/search.php?'
-                              'getword=%D5%CD%ED%CD+%C7%E1%C8%CE%C7%D1%ED&field=btags',
-        ('سنن النسائي', 'title'): 'http://waqfeya.com/search.php?'
-                                  'getword=%D3%E4%E4+%C7%E1%E4%D3%C7%C6%ED&field=btitle',
-        ('الترمذي', 'author'): 'http://waqfeya.com/search.php?getword=%C7%E1%CA%D1%E3%D0%ED&field=athid',
-        ('رائد', 'verifier'): 'http://waqfeya.com/search.php?getword=%D1%C7%C6%CF&field=verid',
-        ('ابو داود', 'card'): 'http://waqfeya.com/search.php?getword=%C7%C8%E6+%CF%C7%E6%CF&field=binfo',
-        ('ابن ماجة', 'toc'): 'http://waqfeya.com/search.php?getword=%C7%C8%E4+%E3%C7%CC%C9&field=btoc',
-        ('صحيح مسلم', 'tags'): 'http://waqfeya.com/search.php?getword=%D5%CD%ED%CD+%E3%D3%E1%E3&field=btags'
+        'صحيح البخاري': 'http://waqfeya.com/search.php?'
+                        'getword=%D5%CD%ED%CD+%C7%E1%C8%CE%C7%D1%ED&field=btags',
+        'سنن النسائي': 'http://waqfeya.com/search.php?'
+                       'getword=%D3%E4%E4+%C7%E1%E4%D3%C7%C6%ED&field=btags',
+        'الترمذي': 'http://waqfeya.com/search.php?getword=%C7%E1%CA%D1%E3%D0%ED&field=btags',
+        'رائد': 'http://waqfeya.com/search.php?getword=%D1%C7%C6%CF&field=btags',
+        'ابو داود': 'http://waqfeya.com/search.php?getword=%C7%C8%E6+%CF%C7%E6%CF&field=btags',
+        'ابن ماجة': 'http://waqfeya.com/search.php?getword=%C7%C8%E4+%E3%C7%CC%C9&field=btags',
+        'صحيح مسلم': 'http://waqfeya.com/search.php?getword=%D5%CD%ED%CD+%E3%D3%E1%E3&field=btags'
     }
 
     with open('res/search_sample.html', 'r', encoding='windows-1256') as f:
@@ -61,12 +61,12 @@ async def test_search_searches_query(ctx):
     async def _fetch(url):
         return bs
 
-    for (query, tag), expected_url in test_table.items():
+    for query, expected_url in test_table.items():
 
         wh = WaqfeyaHandler(MagicMock(spec=ctx))
         wh._fetch = _fetch
 
-        results, url = await wh.search(query, tag)
+        results, url = await wh.search(query)
         assert results is not None
         assert url == expected_url
 

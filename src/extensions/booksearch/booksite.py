@@ -21,8 +21,8 @@ class BookSite:
         else:
             raise UnSupportedSite(f"{argument} is not a supported site!")
 
-    async def search(self, query, tag) -> discord.Embed:
-        results, search_url = await self.handler.search(query, tag)
+    async def search(self, query) -> discord.Embed:
+        results, search_url = await self.handler.search(query)
 
         e = discord.Embed(title='Search Results', url=search_url)
         for result in results:

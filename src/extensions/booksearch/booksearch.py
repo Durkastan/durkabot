@@ -8,6 +8,6 @@ class BookSearch:
         self.bot = bot
 
     @commands.command()
-    async def booksearch(self, ctx, book_site: BookSite, query: str, tag: str = None):
-        embed = await book_site.search(query, tag)
+    async def booksearch(self, ctx, book_site: BookSite, *, query: str):
+        embed = await book_site.search(query)
         await ctx.send(embed=embed)

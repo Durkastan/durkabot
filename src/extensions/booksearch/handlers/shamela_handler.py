@@ -44,7 +44,7 @@ class ShamelaHandler:
         book_id = relative_link_on_site[slash_index + 1:]
 
         # we also need a "fragment" of sorts
-        # we drop 3 digits from the end of the id
+        # we drop 2 digits from the end of the id
         # what we have left, which may be 3 or less digits,
         # we left-pad it with 0 until it is 3 digits.
         book_id_fragment = book_id[:-2].rjust(3, '0')

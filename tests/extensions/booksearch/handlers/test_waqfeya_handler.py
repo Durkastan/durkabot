@@ -35,10 +35,6 @@ def test_process_result_parses_tag_and_returns_bookdata(waqfeya_bookls1, waqfeya
             assert bd is not None
             bd2 = bookls[index]
             assert bd == bd2
-            assert bd.title == bd2.title
-            assert bd.author_name == bd2.author_name
-            assert bd.link == bd2.link
-            assert bd.site_link == bd2.site_link
 
 
 @pytest.mark.asyncio

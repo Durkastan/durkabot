@@ -1,3 +1,4 @@
+from asyncio import AbstractEventLoop
 from unittest.mock import MagicMock
 
 import pytest
@@ -7,8 +8,8 @@ from extensions.booksearch.bookdata import BookData
 from extensions.booksearch.handlers import WaqfeyaHandler
 
 
-def test_init(ctx):
-    wh = WaqfeyaHandler(MagicMock(spec=ctx))
+def test_init():
+    wh = WaqfeyaHandler(MagicMock(spec=AbstractEventLoop))
 
     assert wh.session is not None
 

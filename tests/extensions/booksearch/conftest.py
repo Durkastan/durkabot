@@ -4,7 +4,7 @@ from extensions.booksearch.bookdata import BookData
 
 
 @pytest.fixture()
-def bookls1():
+def waqfeya_bookls1():
     yield [
         BookData(title="صحيح البخاري (ت: ابن أبي علفة)",
                  author_name="محمد بن إسماعيل بن إبراهيم البخاري أبو عبد الله",
@@ -47,7 +47,7 @@ def bookls1():
 
 
 @pytest.fixture()
-def bookls2():
+def waqfeya_bookls2():
     yield [
         BookData(title="شرح أبواب من صحيح البخاري ويليه شرح أبواب من جامع الترمذي", author_name="ابن رجب الحنبلي",
                  link="https://archive.org/details/FP171605", site_link="http://waqfeya.com/book.php?bid=12390"),

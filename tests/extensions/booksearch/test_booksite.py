@@ -29,12 +29,12 @@ async def test_convert_raises_error_if_not_supported_site(ctx):
 
 
 @pytest.mark.asyncio
-async def test_search_returns_embed_with_results(ctx, bookls1):
+async def test_search_returns_embed_with_results(ctx, waqfeya_bookls1):
     search_url = 'uncle-google.com'
     b = BookSite(MagicMock(spec=ctx), MagicMock(spec=WaqfeyaHandler))
 
     async def search(query):
-        return bookls1, search_url
+        return waqfeya_bookls1, search_url
 
     b.handler.search = search
     b.handler.format_result = WaqfeyaHandler.format_result
@@ -42,7 +42,7 @@ async def test_search_returns_embed_with_results(ctx, bookls1):
     embed = await b.search('fake query')
 
     for index, field in enumerate(embed.fields):
-        book = bookls1[index]
+        book = waqfeya_bookls1[index]
 
         assert book.title == field.name
         if book.author_name is not None:

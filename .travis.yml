@@ -11,3 +11,6 @@ after_failure:
   - chmod +x send.sh
   - ./send.sh failure $WEBHOOK_URL
 script: pytest tests
+branches:
+  only:
+  - development

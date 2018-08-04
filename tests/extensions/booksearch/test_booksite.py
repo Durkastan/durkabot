@@ -51,3 +51,12 @@ async def test_search_returns_embed_with_results(ctx, waqfeya_bookls1):
             assert book.link in field.value
         if book.site_link is not None:
             assert book.site_link in field.value
+
+
+def test_get_libraries_return_list_of_library_names():
+    # at the date of writing this test
+    # the supported booksites are as follows
+    expected = {'waqfeya', 'shamela'}
+
+    # subset so we can expand and still have this test work
+    assert expected.issubset(BookSite.libraries())

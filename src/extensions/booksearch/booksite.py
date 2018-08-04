@@ -30,3 +30,13 @@ class BookSite:
             e.add_field(name=title, value=subtext, inline=False)
 
         return e
+
+    @staticmethod
+    def libraries():
+        libraries = set()
+
+        for name in handlers.__dict__:
+            if name.endswith('Handler'):
+                libraries.add(name.replace('Handler', '').lower())
+
+        return libraries

@@ -9,5 +9,13 @@ class Archive:
 
     @commands.command()
     async def archive(self, ctx, link):
+        """Get an archive.org snapshot for the given link
+
+        Args:
+            link: The page to be archived
+
+        Returns:
+            link to archived page on archive.org
+        """
         result = await self.handler.archive(link)
         await ctx.send(result.link)

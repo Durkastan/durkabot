@@ -28,8 +28,8 @@ class WaqfeyaHandler:
         async with self.session.get(url) as r:
             return BeautifulSoup(await r.text(encoding='windows-1256'), 'html.parser')
 
-    async def search(self, query, tag) -> Tuple[List[BookData], str]:
-        url = self.url.format(quote_plus(query, encoding='windows-1256'), self.fields.get(tag) or self.fields['tags'])
+    async def search(self, query) -> Tuple[List[BookData], str]:
+        url = self.url.format(quote_plus(query, encoding='windows-1256'), self.fields['tags'])
 
         soup = await self._fetch(url)
 

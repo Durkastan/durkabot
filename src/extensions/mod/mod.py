@@ -16,8 +16,12 @@ class Mod:
         Args:
             members: A list of users. Just mention!
         """
-        for member in members:
-            await ctx.guild.ban(member)
+        if members:
+            for member in members:
+                await ctx.guild.ban(member)
+            await ctx.send("Banned.")
+        else:
+            await ctx.send("Whaddaya mean, 'just ban anyone?'")
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -29,8 +33,12 @@ class Mod:
         Args:
             members: A list of users. Just mention!
         """
-        for member in members:
-            await ctx.guild.kick(member)
+        if members:
+            for member in members:
+                await ctx.guild.kick(member)
+            await ctx.send('Booted.')
+        else:
+            await ctx.send("Sorry chief, can't boot.")
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)

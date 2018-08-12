@@ -17,5 +17,6 @@ class Archive:
         Returns:
             link to archived page on archive.org
         """
+        await ctx.message.delete()
         result = await self.handler.archive(link)
         await ctx.send(result.link)

@@ -6,6 +6,7 @@ import os
 from discord.ext import commands
 from discord.ext.commands import UserInputError, MissingPermissions, BotMissingPermissions
 
+from storage import StorageHandler
 from util import get_prefix
 
 
@@ -32,6 +33,7 @@ class Bot(commands.Bot):
         )
 
         self.logger = logger
+        self.storage = StorageHandler
 
     async def on_ready(self):
         print(self.user.name, ' : ', self.user.id)
@@ -65,7 +67,7 @@ def main():
         try:
             Bot().run(os.environ.get('DISCORD_TOKEN'))
         except Exception:
-            logging.critical(traceback.format_exc())
+            logger.critical(traceback.format_exc())
 
 
 if __name__ == '__main__':

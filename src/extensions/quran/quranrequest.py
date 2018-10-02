@@ -12,7 +12,7 @@ class QuranRequest:
         verse_segment = request[1].split('-')
 
         self.offset = int(verse_segment[0]) - 1
-        self.limit = int(verse_segment[1]) if len(verse_segment) > 1 else 1
+        self.limit = int(verse_segment[1]) - self.offset if len(verse_segment) > 1 else 1
 
     @property
     def url(self):

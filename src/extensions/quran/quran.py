@@ -9,7 +9,7 @@ class Quran:
         self.bot = bot
         self.fetcher = QuranFetcher(bot.loop)
 
-    @commands.bot.command()
+    @commands.command()
     async def quran(self, ctx, req: str, edition: str = 'asad'):
         embed = self.make_embed(await self.fetcher.fetch(req, edition))
         await ctx.send(embed=embed)

@@ -16,7 +16,7 @@ class Quran:
 
     @staticmethod
     def make_embed(response):
-        e = discord.Embed(title=response.surah_english_name + " | " + response.surah_arabic_name, color=43008)
+        e = discord.Embed(title=response.surah_english_name + " | " + response.surah_arabic_name, color=35810)
         for ayah_num, ayah_txt in response.ayahs.items():
             if len(ayah_txt) < 1000:
                 e.add_field(name=str(ayah_num), value=ayah_txt, inline=False)
@@ -27,4 +27,5 @@ class Quran:
                 e.add_field(name=str(ayah_num), value=part_1, inline=False)
                 e.add_field(name='ً', value=part_2, inline=False)
         e.set_footer(text=f"{response.surah_revelation_type} | {response.edition_name}")
+        e.set_thumbnail(url="https://i.imgur.com/BOJeLJF.png")
         return e

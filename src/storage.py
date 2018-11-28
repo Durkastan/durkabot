@@ -4,20 +4,24 @@ from pymongo import MongoClient
 
 
 class StorageHandler:
-    def __init__(self, ctx):
-        self.database_name = f'db_{ctx.guild.id}'
+    _client = None
+
+    def __init__(self):
+        self.database_name = ''
         self._db = None
-        self._client = None
+
+    def feed(self, ctx):
+        self.database_name = f'db_{ctx.guild.id}'
 
     @property
     def client(self):
-        if self._client is None:
-            self._client = self._get_client()
-        return self._client
+        return self._get_client()
 
-    @staticmethod
-    def _get_client():
-        return MongoClient(os.getenv("MONGOURL"))
+    @classmethod
+    def _get_client(cls):
+        if cls._client is None:
+            cls._client = MongoClient(os.getenv("MONGOURL"))
+        return cls._client
 
     @property
     def db(self):

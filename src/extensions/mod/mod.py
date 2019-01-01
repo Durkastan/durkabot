@@ -62,13 +62,16 @@ class Mod:
     @commands.bot_has_permissions(manage_roles=True)
     async def role(self, ctx, member: discord.Member, *, role_name):
         """
-        Add a role to the given member
+        Add/remove a role to the given member
         Args:
             member: The member to add the role to
             role_name: Role name, case-insensitive
         """
         role = discord.utils.find(lambda r: r.name.lower() == role_name, member.guild.roles)
-        await member.add_roles(role)
+        if role not in member.roles:
+            await member.add_roles(role)
+        else:
+            await member.remove_roles(role)
 
     async def __after_invoke(self, ctx):
         await ctx.message.delete()

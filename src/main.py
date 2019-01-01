@@ -57,7 +57,7 @@ class Bot(commands.Bot):
     async def on_command_error(self, ctx, exception):
         """Report an error if user uses command incorrectly, or in case of missing permissions."""
         if isinstance(exception, (MissingPermissions, BotMissingPermissions, UserInputError)):
-            await ctx.send(str(exception))
+            await ctx.send(str(exception), delete_after=5)
         else:
             await super().on_command_error(ctx, exception)
 

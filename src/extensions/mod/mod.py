@@ -21,9 +21,9 @@ class Mod:
         if members:
             for member in members:
                 await ctx.guild.ban(member)
-            await ctx.send("Banned.")
+            await ctx.send("Banned.", delete_after=5)
         else:
-            await ctx.send("Whaddaya mean, 'just ban anyone?'")
+            await ctx.send("Whaddaya mean, 'just ban anyone?'", delete_after=5)
 
     @commands.command()
     @has_permissions(kick_members=True)
@@ -38,9 +38,9 @@ class Mod:
         if members:
             for member in members:
                 await ctx.guild.kick(member)
-            await ctx.send('Booted.')
+            await ctx.send('Booted.', delete_after=5)
         else:
-            await ctx.send("Sorry chief, can't boot.")
+            await ctx.send("Sorry chief, can't boot.", delete_after=5)
 
     @commands.command()
     @has_permissions(manage_messages=True)
@@ -69,3 +69,9 @@ class Mod:
         """
         role = discord.utils.find(lambda r: r.name.lower() == role_name, member.guild.roles)
         await member.add_roles(role)
+
+    async def __after_invoke(self, ctx):
+        await ctx.message.delete()
+
+    async def on_command_error(self, ctx, exception):
+        await ctx.message.delete()

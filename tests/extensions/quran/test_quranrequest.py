@@ -7,6 +7,7 @@ def test_init_parses_parameters():
         ("20:20-29", 'ar.simple'): (20, 19, 10,  'ar.simple'),
         ("114:1-5", 'sahih'): (114, 0, 5,  'en.sahih'),
         ("18:9-10", "en.pickthall"): (18, 8, 2, 'en.pickthall'),
+        ("45:4", "quran-simple"): (45, 3, 1, "quran-simple"),
         ("3:7", 'ar'): (3, 6, 1, 'en.ar')  # invalid edition, api returns arabic. good enough
     }
     for (req, raw_edition), (surah, offset, limit, edition) in test_table.items():

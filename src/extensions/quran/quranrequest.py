@@ -3,7 +3,7 @@ class QuranRequest:
 
     def __init__(self, req, edition):
         # language not specified, assume english
-        if edition.find('.') == -1:
+        if edition.find('.') == -1 and edition.find('-') == -1:
             edition = 'en.' + edition
         self.edition = edition
 

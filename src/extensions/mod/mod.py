@@ -60,7 +60,7 @@ class Mod:
     @commands.command()
     @has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
-    async def role(self, ctx, member: discord.Member, role_name):
+    async def role(self, ctx, member: discord.Member, *, role_name):
         """
         Add a role to the given member
         Args:

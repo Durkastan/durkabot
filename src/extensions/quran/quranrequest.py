@@ -2,7 +2,8 @@ class QuranRequest:
     _url = 'http://api.alquran.cloud/surah/{}/{}?offset={}&limit={}'
 
     def __init__(self, req, edition):
-        if edition != 'ar':
+        # language not specified, assume english
+        if edition.find('.') == -1 and edition.find('-') == -1:
             edition = 'en.' + edition
         self.edition = edition
 

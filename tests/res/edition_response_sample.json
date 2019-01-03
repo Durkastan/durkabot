@@ -1,0 +1,118 @@
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "identifier": "en.ahmedali",
+      "language": "en",
+      "name": "Ahmed Ali",
+      "englishName": "Ahmed Ali",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.ahmedraza",
+      "language": "en",
+      "name": "Ahmed Raza Khan",
+      "englishName": "Ahmed Raza Khan",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.arberry",
+      "language": "en",
+      "name": "Arberry",
+      "englishName": "A. J. Arberry",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.asad",
+      "language": "en",
+      "name": "Asad",
+      "englishName": "Muhammad Asad",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.daryabadi",
+      "language": "en",
+      "name": "Daryabadi",
+      "englishName": "Abdul Majid Daryabadi",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.hilali",
+      "language": "en",
+      "name": "Hilali & Khan",
+      "englishName": "Muhammad Taqi-ud-Din al-Hilali and Muhammad Muhsin Khan",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.pickthall",
+      "language": "en",
+      "name": "Pickthall",
+      "englishName": "Mohammed Marmaduke William Pickthall",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.qaribullah",
+      "language": "en",
+      "name": "Qaribullah & Darwish",
+      "englishName": "Hasan al-Fatih Qaribullah and Ahmad Darwish",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.sahih",
+      "language": "en",
+      "name": "Saheeh International",
+      "englishName": "Saheeh International",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.sarwar",
+      "language": "en",
+      "name": "Sarwar",
+      "englishName": "Muhammad Sarwar",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.yusufali",
+      "language": "en",
+      "name": "Yusuf Ali",
+      "englishName": "Abdullah Yusuf Ali",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.maududi",
+      "language": "en",
+      "name": "Maududi",
+      "englishName": "Abul Ala Maududi",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.shakir",
+      "language": "en",
+      "name": "Shakir",
+      "englishName": "Mohammad Habib Shakir",
+      "format": "text",
+      "type": "translation"
+    },
+    {
+      "identifier": "en.transliteration",
+      "language": "en",
+      "name": "Transliteration",
+      "englishName": "English Transliteration",
+      "format": "text",
+      "type": "transliteration"
+    }
+  ]
+}

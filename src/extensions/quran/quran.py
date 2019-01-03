@@ -9,10 +9,26 @@ class Quran:
         self.bot = bot
         self.fetcher = QuranFetcher(bot.loop)
 
-    @commands.command()
+    @commands.group(invoke_without_command=True)
     async def quran(self, ctx, req: str, edition: str = 'asad'):
+        """
+        Args:
+            req: The verse range in the format ss:i-j
+            edition: Edition or translation. An invalid edition returns Arabic.
+
+        Use the command "quran editions" to see available editions
+        """
         embed = self.make_embed(await self.fetcher.fetch(req, edition))
         await ctx.send(embed=embed)
+
+    @quran.command()
+    async def editions(self, ctx, language: str = 'en'):
+        """
+
+        Args:
+            language(optional): The language of editions to return, in 2-letter format. e.g: en
+        """
+        await ctx.send(await self.fetcher.editions(language))
 
     @staticmethod
     def make_embed(response):

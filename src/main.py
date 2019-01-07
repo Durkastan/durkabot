@@ -46,7 +46,7 @@ class Bot(commands.Bot):
             if os.path.isdir(extension_dir):
                 if os.path.isfile(os.path.join(extension_dir, '__init__.py')):
                     try:
-                        self.load_extension(f"{EXTENSIONS_DIR}.{i}")
+                        self.load_extension(f"{os.path.basename(EXTENSIONS_DIR)}.{i}")
                     except Exception:
                         self.logger.error(f'Error loading {i}: {traceback.format_exc()}')
         self.logger.info('Loaded.')

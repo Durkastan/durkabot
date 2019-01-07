@@ -6,6 +6,7 @@ import os
 from discord.ext import commands
 from discord.ext.commands import UserInputError, MissingPermissions, BotMissingPermissions
 
+from static import EXTENSIONS_DIR, DESCRIPTION
 from storage import StorageHandler
 from util import get_prefix
 
@@ -17,10 +18,6 @@ handler.setLevel(logging.INFO)
 
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
-
-EXTENSIONS_DIR = "extensions"
-
-DESCRIPTION = """DURKA DURKA"""
 
 
 class Bot(commands.Bot):

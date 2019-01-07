@@ -3,6 +3,9 @@ from discord.ext.commands import check, MissingPermissions
 
 def has_permissions(**perms):
     def predicate(ctx):
+        if ctx.guild is None:
+            return False
+
         ch = ctx.channel
         permissions = ch.permissions_for(ctx.author)
 

@@ -12,6 +12,7 @@ class Quran:
     @commands.group(invoke_without_command=True)
     async def quran(self, ctx, req: str, edition: str = 'asad'):
         """
+        Quote Al-Qur'an ul-Kareem
 
         Args:
             req: The verse range in the format ss:i-j
@@ -25,6 +26,7 @@ class Quran:
     @quran.command()
     async def editions(self, ctx, language: str = 'en'):
         """
+        See supported editions for quoting the Qur'an
 
         Args:
             language(optional): The language of editions to return, in 2-letter format. e.g: en

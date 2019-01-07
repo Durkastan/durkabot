@@ -12,6 +12,7 @@ class Quran:
     @commands.group(invoke_without_command=True)
     async def quran(self, ctx, req: str, edition: str = 'asad'):
         """
+
         Args:
             req: The verse range in the format ss:i-j
             edition: Edition or translation. An invalid edition returns Arabic.

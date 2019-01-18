@@ -7,4 +7,7 @@ class Misc:
 
     @commands.command(aliases=['takbir'])
     async def takbeer(self, ctx):
+        """
+        Allahu Akbar!
+        """
         await ctx.send("Allahu Akbar!")

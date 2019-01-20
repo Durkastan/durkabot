@@ -75,6 +75,3 @@ class Mod:
 
     async def __after_invoke(self, ctx):
         await ctx.message.delete()
-
-    async def on_command_error(self, ctx, exception):
-        await ctx.message.delete()

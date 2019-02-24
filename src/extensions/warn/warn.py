@@ -3,12 +3,13 @@ from datetime import datetime, timedelta
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 from common.permission import has_permissions
 from extensions.warn.warner import Warner, AfterWarnAction
 
 
-class Warn:
+class Warn(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.warner = Warner()

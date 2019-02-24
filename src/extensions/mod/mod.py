@@ -1,10 +1,11 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 from common.permission import has_permissions
 
 
-class Mod:
+class Mod(Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -73,5 +74,5 @@ class Mod:
         else:
             await member.remove_roles(role)
 
-    async def __after_invoke(self, ctx):
+    async def cog_after_invoke(self, ctx):
         await ctx.message.delete()

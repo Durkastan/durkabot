@@ -1,10 +1,11 @@
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 from common.mention_free_text import MentionFreeText
 from extensions.meme.psst import format_psst
 
 
-class Meme:
+class Meme(Cog):
     def __init__(self, bot):
         self.bot = bot
 

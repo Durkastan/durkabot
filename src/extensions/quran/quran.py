@@ -1,10 +1,11 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 from extensions.quran.quranfetcher import QuranFetcher
 
 
-class Quran:
+class Quran(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.fetcher = QuranFetcher(bot.loop)

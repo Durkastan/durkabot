@@ -1,9 +1,11 @@
+import discord
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 from extensions.archive.archive_handler import ArchiveHandler
 
 
-class Archive:
+class Archive(Cog):
     def __init__(self, bot):
         self.handler = ArchiveHandler(bot.loop)
 
@@ -17,6 +19,10 @@ class Archive:
         Returns:
             link to archived page on archive.org
         """
-        await ctx.message.delete()
+        try:
+            await ctx.message.delete()
+        except discord.errors.Forbidden:
+            pass
+
         result = await self.handler.archive(link)
         await ctx.send(result.link)

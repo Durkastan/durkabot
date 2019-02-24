@@ -1,10 +1,11 @@
 import pymongo
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 from storage import StorageHandler
 
 
-class Tag:
+class Tag(Cog):
     collection_name = 'tags'
 
     def __init__(self, bot):

@@ -10,7 +10,7 @@ class Quran:
         self.fetcher = QuranFetcher(bot.loop)
 
     @commands.group(invoke_without_command=True)
-    async def quran(self, ctx, req: str, edition: str = 'asad'):
+    async def quran(self, ctx, req: str, edition: str = 'sahih'):
         """
         Args:
             req: The verse range in the format ss:i-j

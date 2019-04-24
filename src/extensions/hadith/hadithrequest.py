@@ -8,7 +8,7 @@ class HadithRequest:
         self.hadith_number = None
 
         if self.book_name == 'qudsi' or book_name == 'nawawi':
-            self.book_name = self.book_name + '40'
+            self.formatted_book_name = self.book_name + '40'
             self.hadith_number = ref
         else:
             self.book_number, self.hadith_number = ref.split(":")
@@ -16,6 +16,6 @@ class HadithRequest:
     @property
     def url(self):
         if self.book_name == 'qudsi' or self.book_name == 'nawawi':
-            return self.url1.format(self.book_name, self.hadith_number)
+            return self.url1.format(self.formatted_book_name, self.hadith_number)
         else:
             return self.url2.format(self.book_name, self.book_number, self.hadith_number)

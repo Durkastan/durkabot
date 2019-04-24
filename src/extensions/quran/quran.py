@@ -45,7 +45,7 @@ class Quran(Cog):
                 part_1 = ayah_txt[:ind]
                 part_2 = ayah_txt[ind:]
                 e.add_field(name=str(ayah_num), value=part_1, inline=False)
-                e.add_field(name='ً', value=part_2, inline=False)
+                e.add_field(name='​', value=part_2, inline=False)  # that's a zero width space
         e.set_footer(text=f"{response.surah_revelation_type} | {response.edition_name}")
         e.set_thumbnail(url="https://i.imgur.com/BOJeLJF.png")
         return e

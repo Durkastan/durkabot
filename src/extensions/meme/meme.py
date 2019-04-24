@@ -1,7 +1,7 @@
+import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
 
-from common.mention_free_text import MentionFreeText
 from extensions.meme.psst import format_psst
 
 
@@ -10,9 +10,9 @@ class Meme(Cog):
         self.bot = bot
 
     @commands.command()
-    async def psst(self, ctx, *, txt: MentionFreeText):
+    async def psst(self, ctx, *, txt: str):
         """hey kid!"""
-        processed = format_psst(txt)
+        processed = format_psst(discord.utils.escape_mentions(txt))
         await ctx.send(processed)
 
 

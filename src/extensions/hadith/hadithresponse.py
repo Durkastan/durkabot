@@ -13,7 +13,7 @@ class HadithResponse:
         english_text_raw = soup.find("div", {"class": "text_details"}).text
         self.english_text = self.format_hadith_text(english_text_raw)
 
-        self.grading = self.element_text_or_none(soup, "td", {"class": "english_grade"})
+        self.grading = self.element_text_or_none(soup, "td", {"class": "english_grade", "width": "36%"}).strip(":")
         self.narrator = self.element_text_or_none(soup, "div", {"class": "hadith_narrated"})
 
         self.chapter_name = self.element_text_or_none(soup, "div", {"class": "arabicchapter arabic"})

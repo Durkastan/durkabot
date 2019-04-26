@@ -9,7 +9,8 @@ class HadithFetcher:
         self.session = ClientSession(loop=loop)
 
     async def fetch(self, book_name, ref):
-        return await self._fetch(get_hadith_request(book_name, ref))
+        request = get_hadith_request(book_name, ref)
+        return await self._fetch(request), request.url
 
     async def _fetch(self, request):
         async with self.session.get(request.url) as r:

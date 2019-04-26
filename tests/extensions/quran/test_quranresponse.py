@@ -4,7 +4,7 @@ from extensions.quran.quranresponse import QuranResponse
 
 
 def test_init_parses_surah_data_in_response():
-    sample = json.load(open("res/response_samples.json", 'r'))
+    sample = json.load(open("res/extensions/quran/response_samples.json", 'r'))
     test_table = [  # surah_num, arabic_name, english_name, revelation_type, num_ayahs, language, edition
         (sample[0], (5, "سورة المائدة", "Al-Maaida", "Medinan", 120, 'en', "Muhammad Asad")),
         (sample[1], (20, "سورة طه", "Taa-Haa", "Meccan", 135, 'ar', "Simple")),
@@ -23,7 +23,7 @@ def test_init_parses_surah_data_in_response():
 
 
 def test_init_parses_ayah_data_in_response():
-    sample = json.load(open("res/response_samples.json", 'r'))
+    sample = json.load(open("res/extensions/quran/response_samples.json", 'r'))
     test_table = [  # num of ayat, (length_1, length_2, ...)
         (sample[0], (1, (257, ))),
         (sample[1], (10, (42, 63, 85, 36, 40, 31, 21, 32, 18, 35))),

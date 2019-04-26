@@ -18,8 +18,8 @@ def test_process_result_parses_tag_and_returns_bookdata(waqfeya_bookls1, waqfeya
     # bookls1, bookls2 are lists of 15 results on the sample pages; static input should give static output.
 
     test_table = {
-        'res/waqfeya_search_sample.html': waqfeya_bookls1,
-        'res/waqfeya_search_sample2.html': waqfeya_bookls2
+        'res/extensions/booksearch/handlers/waqfeya_search_sample.html': waqfeya_bookls1,
+        'res/extensions/booksearch/handlers/waqfeya_search_sample2.html': waqfeya_bookls2
     }
 
     for filename, bookls in test_table.items():
@@ -51,7 +51,7 @@ async def test_search_searches_query(ctx):
         'صحيح مسلم': 'http://waqfeya.com/search.php?getword=%D5%CD%ED%CD+%E3%D3%E1%E3&field=btags'
     }
 
-    with open('res/waqfeya_search_sample.html', 'r', encoding='windows-1256') as f:
+    with open('res/extensions/booksearch/handlers/waqfeya_search_sample.html', 'r', encoding='windows-1256') as f:
         bs = BeautifulSoup(f.read(), 'html.parser')
 
     async def _fetch(url):

@@ -9,7 +9,7 @@ def test_parse_editions_reports_bad_request():
 
 
 def test_parse_editions_returns_editions():
-    sample = json.load(open("res/edition_response_sample.json", 'r'))
+    sample = json.load(open("res/extensions/quran/edition_response_sample.json", 'r'))
     expected = """```
 en.ahmedali
 en.ahmedraza

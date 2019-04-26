@@ -13,7 +13,7 @@ async def test_archive_archives_website_returns_result(event_loop):
     ah = ArchiveHandler(event_loop)
 
     async def _fetch(url, headers):
-        with open('res/archive.org_header_sample.json', 'r') as f:
+        with open('res/extensions/archive/archive.org_header_sample.json', 'r') as f:
             headers = json.load(f)
         return MagicMock(spec=ClientResponse, headers=headers)
 
@@ -28,15 +28,15 @@ async def test_archive_archives_website_returns_result(event_loop):
 
 def test_process_result_returns_archive_result_from_headers():
     test_samples = {
-        'res/archive.org_header_sample.json': ArchiveResult(
+        'res/extensions/archive/archive.org_header_sample.json': ArchiveResult(
             link='http://web.archive.org/web/20180801175226/http://www.example.com/',
             archive_date='Wed, 01 Aug 2018 17:52:26 GMT', cache_hit=True),
 
-        'res/archive.org_header_sample2.json': ArchiveResult(
+        'res/extensions/archive/archive.org_header_sample2.json': ArchiveResult(
             link='http://web.archive.org/web/20180801182855/http://www.example.net/',
             archive_date='Wed, 01 Aug 2018 18:28:55 GMT', cache_hit=True),
 
-        'res/archive.org_header_sample3.json': ArchiveResult(
+        'res/extensions/archive/archive.org_header_sample3.json': ArchiveResult(
             link='http://web.archive.org/web/20180801183420/http://www.example.org/',
             archive_date='Wed, 01 Aug 2018 18:34:20 GMT', cache_hit=False)
     }

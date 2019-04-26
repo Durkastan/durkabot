@@ -18,8 +18,8 @@ def test_process_result_parses_tag_and_returns_bookdata(shamela_bookls1, shamela
     # bookls1, bookls2 are lists of 15 results on the sample pages; static input should give static output.
 
     test_table = {
-        'res/shamela_search_sample.html': shamela_bookls1,
-        'res/shamela_search_sample2.html': shamela_bookls2
+        'res/extensions/booksearch/handlers/shamela_search_sample.html': shamela_bookls1,
+        'res/extensions/booksearch/handlers/shamela_search_sample2.html': shamela_bookls2
     }
 
     for filename, bookls in test_table.items():
@@ -51,7 +51,7 @@ async def test_search_searches_query(ctx):
                          '%D8%A7%D9%84%D8%A8%D8%AE%D8%A7%D8%B1%D9%8A')
     }
 
-    with open('res/shamela_search_sample.html', 'r', encoding='windows-1256') as f:
+    with open('res/extensions/booksearch/handlers/shamela_search_sample.html', 'r', encoding='windows-1256') as f:
         bs = BeautifulSoup(f.read(), 'html.parser')
 
     async def _fetch(url):

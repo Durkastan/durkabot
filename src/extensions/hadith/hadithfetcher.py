@@ -1,7 +1,7 @@
 from aiohttp import ClientSession
 
 from extensions.hadith.hadithresponse import HadithResponse
-from extensions.hadith.hadithrequest import HadithRequest
+from extensions.hadith.hadithrequest import get_hadith_request
 
 
 class HadithFetcher:
@@ -9,7 +9,7 @@ class HadithFetcher:
         self.session = ClientSession(loop=loop)
 
     async def fetch(self, book_name, ref):
-        return await self._fetch(HadithRequest(book_name, ref))
+        return await self._fetch(get_hadith_request(book_name, ref))
 
     async def _fetch(self, request):
         async with self.session.get(request.url) as r:

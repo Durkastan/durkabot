@@ -8,18 +8,18 @@ class Jailer:
         self.db = StorageHandler.db
         self.collection = self.db[self.collection_name]
 
-    def jail(self, member):
+    def jail(self, member, role_list):
         doc = self.collection.find_one({'member_id': member.id})
-        doc = self._jail(doc, member)
+        doc = self._jail(doc, member, role_list)
         self.collection.replace_one({'member_id': member.id}, doc, upsert=True)
 
-    def _jail(self, doc, member):
+    def _jail(self, doc, member, role_list):
         doc = doc or self.default_doc(member.id)
 
         if doc['is_jailed'] is True:
             return doc
 
-        doc['roles'] = [role.id for role in member.roles]
+        doc['roles'] = [role.id for role in role_list]
         doc['is_jailed'] = True
 
         return doc

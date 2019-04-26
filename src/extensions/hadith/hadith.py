@@ -40,6 +40,10 @@ class Hadith(Cog):
 
             e.add_field(name='​', value=segment, inline=False)  # zero width space
 
-        e.set_footer(text=f"{response.book_title} | {response.book_section_name}")
+        footer = f"{response.book_title} | {response.book_section_name}"
+        if response.grading is not None:
+            footer += " | " + response.grading
+
+        e.set_footer(text=footer)
         e.set_thumbnail(url="https://i.imgur.com/BOJeLJF.png")
         return e

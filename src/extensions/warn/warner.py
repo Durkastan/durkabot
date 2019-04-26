@@ -14,7 +14,7 @@ class Warner:
     collection_name = 'warns'
 
     def __init__(self):
-        self.db = StorageHandler().db
+        self.db = StorageHandler.db
         self.collection = self.db[self.collection_name]
 
     def warn(self, member, reason, channel_id, message_id, author_id):

@@ -5,7 +5,7 @@ from extensions.jail.jailer import Jailer
 
 
 class Jail(Cog):
-    JAIL_ROLE_ID = 0
+    JAIL_ROLE_ID = 459467057151475716
 
     def __init__(self, bot):
         self.bot = bot

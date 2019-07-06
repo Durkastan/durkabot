@@ -1,6 +1,3 @@
-import asyncio
-from datetime import datetime, timedelta
-
 import discord
 from discord.ext import commands
 from discord.ext.commands import Cog
@@ -12,9 +9,13 @@ from extensions.warn.warner import Warner, AfterWarnAction
 class Warn(Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.warner = Warner()
+        self.warner = None
 
-        self.bot.loop.create_task(self.periodically_forget_warns())
+        for guild in self.bot.guilds:
+            self.bot.loop.create_task(Warner.periodically_forget_warns(guild.id))
+
+    async def cog_before_invoke(self, ctx):
+        self.warner = Warner(ctx.guild.id)
 
     @commands.command()
     @has_permissions(kick_members=True)
@@ -92,20 +93,3 @@ class Warn(Cog):
             data.append((warn, link))
 
         await ctx.send(self.warner.format_warns(data))
-
-    async def periodically_forget_warns(self):
-        while True:
-            cursor = self.warner.collection.find(filter={'warns': {'$ne': []}},
-                                                 projection={'warns': True, 'previous_warns': True, 'member_id': True})
-
-            for doc in cursor:
-                for warn in doc['warns'].copy():
-                    if datetime.today() - warn['timestamp'] > timedelta(days=7):
-                        doc['previous_warns'].append(warn)
-                        doc['warns'].remove(warn)
-
-                cursor.collection.update_one({'member_id': doc['member_id']}, {'$set': doc})
-
-            cursor.close()
-
-            await asyncio.sleep(3600)

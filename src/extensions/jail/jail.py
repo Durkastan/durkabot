@@ -7,17 +7,26 @@ from extensions.jail.jailer import Jailer
 
 
 class Jail(Cog):
-    JAIL_ROLE_ID = 459467057151475716
-
     def __init__(self, bot):
         self.bot = bot
-        self.jailer = Jailer()
+        self.jailer = None
+
+    async def cog_check(self, ctx):
+        if ctx.config["jail_role_id"] is None:
+            await ctx.send("No jail role set! Set it with the `config jail_role_id @role_name` command.")
+            return False
+        else:
+            return True
+
+    async def cog_before_invoke(self, ctx):
+        self.jailer = Jailer(ctx.guild.id)
 
     @commands.command()
     @has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
     async def jail(self, ctx, *members: discord.Member):
-        jail_role = ctx.guild.get_role(self.JAIL_ROLE_ID)
+        jail_role_id = ctx.config["jail_role_id"]
+        jail_role = ctx.guild.get_role(jail_role_id)
 
         for member in members:
             old_roles = member.roles
@@ -32,7 +41,8 @@ class Jail(Cog):
     @has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
     async def unjail(self, ctx, *members: discord.Member):
-        jail_role = ctx.guild.get_role(self.JAIL_ROLE_ID)
+        jail_role_id = ctx.config["jail_role_id"]
+        jail_role = ctx.guild.get_role(jail_role_id)
 
         for member in members:
             role_ids = self.jailer.unjail(member)

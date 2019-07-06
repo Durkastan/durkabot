@@ -1,17 +1,16 @@
-import pymongo
 from discord.ext import commands
 from discord.ext.commands import Cog
 
-from storage import StorageHandler
+from extensions.tag.tag_keeper import TagKeeper
 
 
 class Tag(Cog):
-    collection_name = 'tags'
-
     def __init__(self, bot):
         self.bot = bot
-        self.storage = StorageHandler()
-        self.collection = self.storage.db[self.collection_name]
+        self.tag_keeper = None
+
+    async def cog_before_invoke(self, ctx):
+        self.tag_keeper = TagKeeper(ctx.guild.id)
 
     @commands.group(invoke_without_command=True)
     async def tag(self, ctx, *, key):
@@ -21,8 +20,7 @@ class Tag(Cog):
         Args:
             key: Tag name. See the "tag list" subcommand
         """
-        tag = self.collection.find_one({'key': key})
-        await ctx.send(tag['value'])
+        await ctx.send(self.tag_keeper.get(key))
 
     @tag.command()
     @commands.has_permissions(kick_members=True)
@@ -34,7 +32,7 @@ class Tag(Cog):
             key: Tag name. If it contains spaces, put it in quotes.
             value: Tag value.
         """
-        self.collection.replace_one({'key': key}, {'key': key, 'value': value}, upsert=True)
+        self.tag_keeper.create(key, value)
         await ctx.send(f'Tag `{key}` created.')
 
     @tag.command()
@@ -46,8 +44,8 @@ class Tag(Cog):
         Args:
             key: Tag name.
         """
-        result = self.collection.delete_one({'key': key})
-        if result.deleted_count != 0:
+        was_deleted = self.tag_keeper.delete(key)
+        if was_deleted:
             await ctx.send(f'Tag `{key}` deleted.')
         else:
             await ctx.send(f'No tag `{key}`.')
@@ -57,7 +55,4 @@ class Tag(Cog):
         """
         List stored tags.
         """
-        cursor = self.collection.find(projection={'key': True})
-        cursor.sort('key', pymongo.ASCENDING)
-        tag_names = "\n".join([tag['key'] for tag in cursor])
-        await ctx.send(f'```\n{tag_names}```')
+        await ctx.send(f'```\n{self.tag_keeper.list()}```')

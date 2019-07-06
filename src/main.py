@@ -6,6 +6,7 @@ import os
 from discord.ext import commands
 from discord.ext.commands import UserInputError, MissingPermissions, BotMissingPermissions
 
+from common.config_context import ConfigContext
 from static import EXTENSIONS_DIR, DESCRIPTION
 from storage import StorageHandler
 from util import get_prefix
@@ -38,6 +39,9 @@ class Bot(commands.Bot):
         await self.change_presence(status='dnd')
         self._load_cogs()
         await self.change_presence(status='online')
+
+    async def get_context(self, message, *, cls=ConfigContext):
+        return await super(Bot, self).get_context(message, cls=cls)
 
     def _load_cogs(self):
         self.logger.info('Loading cogs...')

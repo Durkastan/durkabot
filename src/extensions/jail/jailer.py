@@ -2,16 +2,20 @@ from storage import StorageHandler
 
 
 class Jailer:
-    collection_name = 'jail'
+    subcollection_name = 'jail'
 
-    def __init__(self):
-        self.db = StorageHandler.db
-        self.collection = self.db[self.collection_name]
+    def __init__(self, guild_id):
+        self.guild_id = guild_id
+
+    @property
+    def collection(self):
+        return StorageHandler.guild_collection(self.guild_id)
 
     def jail(self, member, role_list):
-        doc = self.collection.find_one({'member_id': member.id})
+        jail_collection = self.collection[self.subcollection_name]
+        doc = jail_collection.find_one({'member_id': member.id})
         doc = self._jail(doc, member, role_list)
-        self.collection.replace_one({'member_id': member.id}, doc, upsert=True)
+        jail_collection.replace_one({'member_id': member.id}, doc, upsert=True)
 
     def _jail(self, doc, member, role_list):
         doc = doc or self.default_doc(member.id)
@@ -25,9 +29,10 @@ class Jailer:
         return doc
 
     def unjail(self, member):
-        doc = self.collection.find_one({'member_id': member.id})
+        jail_collection = self.collection[self.subcollection_name]
+        doc = jail_collection.find_one({'member_id': member.id})
         doc, roles = self._unjail(doc, member)
-        self.collection.replace_one({'member_id': member.id}, doc, upsert=True)
+        jail_collection.replace_one({'member_id': member.id}, doc, upsert=True)
 
         return roles
 

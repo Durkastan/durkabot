@@ -12,7 +12,7 @@ class Jail(Cog):
         self.jailer = None
 
     async def cog_check(self, ctx):
-        if ctx.config["jail_role_id"] is None:
+        if ctx.config["jail_role_id"] == 0:
             await ctx.send("No jail role set! Set it with the `config jail_role_id @role_name` command.")
             return False
         else:

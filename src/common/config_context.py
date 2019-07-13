@@ -10,3 +10,8 @@ class ConfigContext(commands.Context):
         if self.guild is None:
             return DEFAULT_CONFIG
         return StorageHandler.config(self.guild.id)
+
+    def write_config(self, doc):
+        if self.guild is None:
+            return
+        StorageHandler.write_config(self.guild.id, doc)

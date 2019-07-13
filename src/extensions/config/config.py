@@ -21,6 +21,8 @@ class Config(Cog):
         if type(value) != type(DEFAULT_CONFIG[key]):
             await ctx.send(f"{key} can only accept a value of type {type(DEFAULT_CONFIG[key])}")
             return
+        doc = ctx.config
+        doc[key] = type(DEFAULT_CONFIG[key])(value)
+        ctx.write_config(ctx.guild.id, doc)
 
-        ctx.config[key] = type(DEFAULT_CONFIG[key])(value)
         await ctx.send(f"{key} set to {value}")

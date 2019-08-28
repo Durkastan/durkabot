@@ -23,9 +23,8 @@ class Misc(Cog):
         Create an embed using a json object
 
         https://leovoel.github.io/embed-visualizer/ is a useful resource for designing embeds.
-
-        Note that one should only supply the bot with the value of the field `embed`, and not
-        the whole thing that website throws out.
         """
+        if data.get("embed"):
+            data = data['embed']
         e = Embed.from_dict(data)
         await ctx.send(embed=e)

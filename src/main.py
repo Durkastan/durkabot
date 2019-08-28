@@ -31,7 +31,7 @@ class Bot(commands.Bot):
             loop=asyncio.new_event_loop(),
         )
 
-        signal.signal(signal.SIGTERM, lambda: self.loop.create_task(self.logout()))
+        signal.signal(signal.SIGTERM, lambda: self.loop.create_task(self.exit()))
         self.logger = logger
         self.storage = StorageHandler
 

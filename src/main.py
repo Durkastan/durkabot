@@ -66,6 +66,7 @@ class Bot(commands.Bot):
 
     async def exit(self):
         await self.logout()
+        StorageHandler.client.close()
         self.loop.close()
         exit(0)
 

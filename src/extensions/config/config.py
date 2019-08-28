@@ -7,7 +7,7 @@ from static import DEFAULT_CONFIG
 class Config(Cog):
     @commands.command()
     @has_permissions(kick_members=True)
-    async def config(self, ctx, key: str, value=None):
+    async def config(self, ctx, key: str, *, value=None):
         if key not in DEFAULT_CONFIG:
             await ctx.send(f"Invalid option! valid options are `{list(DEFAULT_CONFIG.keys())}`")
             return
@@ -18,7 +18,7 @@ class Config(Cog):
             return
 
         # set
-        if type(value) != type(DEFAULT_CONFIG[key]):
+        if not isinstance(value, type(DEFAULT_CONFIG[key])):
             await ctx.send(f"{key} can only accept a value of type {type(DEFAULT_CONFIG[key])}")
             return
         doc = ctx.config

@@ -15,3 +15,9 @@ class ConfigContext(commands.Context):
         if self.guild is None:
             return
         StorageHandler.write_config(self.guild.id, doc)
+
+    @property
+    def storage(self):
+        if self.guild is None:
+            return None
+        return StorageHandler.guild_collection(self.guild.id)

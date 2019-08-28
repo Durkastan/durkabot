@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import signal
 import traceback
 import os
 
@@ -30,6 +31,7 @@ class Bot(commands.Bot):
             loop=asyncio.new_event_loop(),
         )
 
+        signal.signal(signal.SIGTERM, lambda: self.loop.create_task(self.logout()))
         self.logger = logger
         self.storage = StorageHandler
 
@@ -61,6 +63,11 @@ class Bot(commands.Bot):
             await ctx.send(str(exception), delete_after=5)
         else:
             await super().on_command_error(ctx, exception)
+
+    async def exit(self):
+        await self.logout()
+        self.loop.close()
+        exit(0)
 
 
 def main():

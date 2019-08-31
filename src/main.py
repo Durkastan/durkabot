@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import signal
+import sys
 import traceback
 import os
 
@@ -65,10 +66,11 @@ class Bot(commands.Bot):
             await super().on_command_error(ctx, exception)
 
     async def exit(self):
+        sys.tracebacklimit = 0
         await self.logout()
         StorageHandler.client.close()
         self.loop.close()
-        exit(0)
+        sys.exit(0)
 
 
 def main():

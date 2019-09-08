@@ -6,6 +6,9 @@ class TafsirResponse:
     def __init__(self, response):
         soup = bs4.BeautifulSoup(response, "html.parser")
         self.text = self.extract_text(soup)
+        self.tafsir_name = soup.find("div", {"id": "DispFrame"}).contents[0].text
+        self.surah_name = soup.find("select", {"id": "SoraName"}).contents[0]
+        self.ayah_num = soup.find("select", {"id": "Ayat"}).contents[0]
 
     def remove_child(self, parent, child_index):
         child = parent.contents[child_index]
@@ -29,6 +32,3 @@ class TafsirResponse:
                 self.remove_child(subtxt, separator_index)
 
         return text.get_text()
-
-
-

@@ -16,7 +16,7 @@ class Tafsir(commands.Cog):
 
     @staticmethod
     def make_embed(response):
-        e = discord.Embed()
+        e = discord.Embed(title=response.tafsir_name + " | " + response.surah_name + ":" + response.ayah_num, color=35810)
         txt = response.text
         while len(txt) > 0 and not txt.isspace():
             ind = txt.rfind(' ', 700, 1000)

@@ -74,11 +74,7 @@ class Bot(commands.Bot):
 
 
 def main():
-    while True:
-        try:
-            Bot().run(os.environ.get('DISCORD_TOKEN'))
-        except Exception:
-            logger.critical(traceback.format_exc())
+    Bot().run(os.environ.get('DISCORD_TOKEN'))
 
 
 if __name__ == '__main__':

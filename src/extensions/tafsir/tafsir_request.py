@@ -121,7 +121,7 @@ class TafsirRequest:
             if tafsir in self._tafsirs["ar" if language is "en" else "en"]:
                 language = "ar" if language is "en" else "en"
             else:
-                supported_tafsirs = str(self._tafsirs[language].keys()).strip('[]').replace('"', "").replace(",", "")
+                supported_tafsirs = str(list(self._tafsirs[language].keys())).strip('[]').replace('"', "").replace(",", "")
                 raise BadArgument(f"Invalid tafsir! Supported {language} tafsirs are: {supported_tafsirs}")
 
         self.language_id = self._languages[language]

@@ -5,10 +5,9 @@ from bs4 import Tag, NavigableString
 class TafsirResponse:
     def __init__(self, response):
         soup = bs4.BeautifulSoup(response, "html.parser")
-        self.text = self.extract_text(soup)
-        self.tafsir_name = soup.find("div", {"id": "DispFrame"}).contents[0].text
-        self.surah_name = soup.find("select", {"id": "SoraName"}).contents[0]
-        self.ayah_num = soup.find("select", {"id": "Ayat"}).contents[0]
+        self.ayah_text, self.tafsir_text = self.extract_text(soup)
+        self.tafsir_name = soup.find("select", {"id": "Tafsir"}).find("option", {"selected": lambda x: x == ""}).text
+        self.surah_name = soup.find("select", {"id": "SoraName"}).find("option", {"selected": ""}).text.split()[1]
 
     def remove_child(self, parent, child_index):
         child = parent.contents[child_index]
@@ -31,4 +30,6 @@ class TafsirResponse:
             while len(subtxt.contents) - 1 > separator_index:
                 self.remove_child(subtxt, separator_index)
 
-        return text.get_text()
+        s = text.get_text()
+        ind = s.find("}")
+        return s[:ind + 1], s[ind + 1:]

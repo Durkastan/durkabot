@@ -14,4 +14,4 @@ class TafsirFetcher:
         async with self.session.get(request.url) as r:
             response = await r.text()
 
-        return TafsirResponse(response)
+        return TafsirResponse(response), request.url

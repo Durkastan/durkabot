@@ -118,8 +118,8 @@ class TafsirRequest:
         if language not in self._languages:
             raise BadArgument("Invalid language! Supported languages are: `en`, `ar`")
         if tafsir not in self._tafsirs[language]:
-            if tafsir in self._tafsirs["ar" if language is "en" else "en"]:
-                language = "ar" if language is "en" else "en"
+            if tafsir in self._tafsirs["ar" if language == "en" else "en"]:
+                language = "ar" if language == "en" else "en"
             else:
                 supported_tafsirs = str(list(self._tafsirs[language].keys())).strip('[]').replace('"', "").replace(",", "")
                 raise BadArgument(f"Invalid tafsir! Supported {language} tafsirs are: {supported_tafsirs}")

@@ -24,7 +24,7 @@ class Suggestor:
         })
 
     def get_latest_suggestion_from_user(self, user_id):
-        return self.suggestions_collection.find_one({'user_id': user_id}, sort=[('date', pymongo.DESCENDING)])
+        return self.suggestions_collection.find_one({'user_id': user_id}, sort=[('date', pymongo.ASCENDING)])
 
     def get_suggestions_from_user(self, user_id):
         return self.suggestions_collection.find({'user_id': user_id})

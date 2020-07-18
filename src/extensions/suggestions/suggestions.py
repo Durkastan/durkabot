@@ -81,7 +81,7 @@ class Suggestions(commands.Cog):
             await self.new_suggestion(message)
 
     async def new_suggestion(self, message):
-        date = datetime.now()
+        date = datetime.utcnow()
         self.suggestor = Suggestor(guild_id)
         if self.suggestor.is_suggestion_banned(message.author.id):
             await message.author.send("You've been banned from making suggestions :(")
@@ -90,7 +90,7 @@ class Suggestions(commands.Cog):
         latest_sugg = self.suggestor.get_latest_suggestion_from_user(message.author.id)
         if latest_sugg is not None:
             date_delta = abs(date - latest_sugg['date'])
-            if date_delta.days <= 0 and date_delta.seconds / 3600 < default_suggestion_wait:
+            if date_delta.days <= 0 and date_delta.seconds < default_suggestion_wait * 3600:
                 await message.author.send(
                     "Too soon! You need to wait " + str(
                         default_suggestion_wait * 60 - int(date_delta.seconds / 60)) + " minutes.")

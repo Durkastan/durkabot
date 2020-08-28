@@ -1,17 +1,17 @@
 import discord
 from discord.ext import commands
 
-from extensions.tafsir.tafsir_fetcher import TafsirFetcher
+from extensions.tafsir.handlers.altafsir import AlTafsir
 
 
 class Tafsir(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.fetcher = TafsirFetcher(bot.loop)
+        self.handler = AlTafsir(bot.loop)
 
     @commands.command()
     async def tafsir(self, ctx, req, tafsir, language='en'):
-        embed = self.make_embed(*(await self.fetcher.fetch(req, tafsir, language)), req)
+        embed = self.make_embed(*(await self.handler.fetch(req, tafsir, language)), req)
         await ctx.send(embed=embed)
 
     @staticmethod

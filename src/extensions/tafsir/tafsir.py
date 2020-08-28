@@ -14,6 +14,13 @@ class Tafsir(commands.Cog):
 
     @commands.command()
     async def tafsir(self, ctx, req, tafsir, language='en'):
+        """Tafsir al Qur'an
+
+        Args:
+            req: The verse range in the format ss:i-j
+            tafsir: The tafsir name.
+            language(optional): The language of tafsir to return, in 2-letter format. e.g: en
+        """
         handler = self.get_handler_with_support(tafsir, language)
 
         if not handler:

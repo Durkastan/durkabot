@@ -16,7 +16,7 @@ class Tafsir(commands.Cog):
         self.session = ClientSession(loop=bot.loop)
 
     @commands.command()
-    async def tafsir(self, ctx, req, tafsir, language=None):
+    async def tafsir(self, ctx, req, tafsir=None, language=None):
         """Tafsir Al-Qur'an
 
         Args:
@@ -24,7 +24,11 @@ class Tafsir(commands.Cog):
             tafsir: The tafsir name.
             language(optional): The language of tafsir to return, in 2-letter format. e.g: en
         """
-        if tafsir not in self.supported_tafsirs():
+        if tafsir is None and language is None:
+            tafsir = "ibnkathir"
+            language = 'en'
+
+        elif tafsir not in self.supported_tafsirs():
             raise BadArgument(f"Unsupported tafsir! Supported tafsirs are: `{', '.join(self.supported_tafsirs())}`")
 
         notes = ''

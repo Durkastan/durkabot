@@ -161,3 +161,9 @@ class AlTafsir:
         surah_name = soup.find("select", {"id": "SoraName"}).find("option", {"selected": ""}).text.split()[1]
 
         return TafsirData(ayah_text, tafsir_text, tafsir_name, surah_name)
+
+    def tafsirs(self):
+        return self._tafsirs.keys()
+
+    def languages(self):
+        return self._languages.keys()

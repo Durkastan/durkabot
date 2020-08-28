@@ -24,7 +24,10 @@ class Tafsir(commands.Cog):
         handler = self.get_handler_with_support(tafsir, language)
 
         if handler is None:
-            raise BadArgument("Unsupported tafsir! Supported tafsirs are: ")
+            if language not in self.supported_languages():
+                raise BadArgument(f"Unsupported language! Supported languages are: {', '.join(self.supported_languages())}")
+            elif tafsir not in self.supported_tafsirs():
+                raise BadArgument(f"Unsupported tafsir! Supported tafsirs are: {', '.join(self.supported_tafsirs())}")
 
         url = handler.get_url(req, tafsir, language)
         response = await self.fetch(url)
@@ -42,6 +45,18 @@ class Tafsir(commands.Cog):
             if handler.is_supported(tafsir, language):
                 return handler
         return None
+
+    def supported_tafsirs(self):
+        supported: set = set()
+        for handler in self.handlers:
+            supported = supported.union(handler.tafsirs())
+        return supported
+
+    def supported_languages(self):
+        supported: set = set()
+        for handler in self.handlers:
+            supported = supported.union(handler.languages())
+        return supported
 
     @staticmethod
     def make_embed(data, url, req):

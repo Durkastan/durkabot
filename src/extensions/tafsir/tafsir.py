@@ -23,7 +23,7 @@ class Tafsir(commands.Cog):
         """
         handler = self.get_handler_with_support(tafsir, language)
 
-        if not handler:
+        if handler is None:
             raise BadArgument("Unsupported tafsir! Supported tafsirs are: ")
 
         url = handler.get_url(req, tafsir, language)

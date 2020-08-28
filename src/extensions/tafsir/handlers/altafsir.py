@@ -1,24 +1,8 @@
-from aiohttp import ClientSession
-
 import bs4
 from bs4 import Tag, NavigableString
-from discord.ext.commands import BadArgument
 
 
 class AlTafsir:
-    def __init__(self, loop):
-        self.session = ClientSession(loop=loop)
-
-    async def fetch(self, req, tafsir, language):
-        request = TafsirRequest(req, tafsir, language)
-
-        async with self.session.get(request.url) as r:
-            response = await r.text()
-
-        return TafsirResponse(response), request.url
-
-
-class TafsirRequest:
     _url = ("https://www.altafsir.com/Tafasir.asp?"
             "tMadhNo=0&"
             "tDisplay=yes&"
@@ -131,30 +115,25 @@ class TafsirRequest:
         }
     }
 
-    def __init__(self, req, tafsir, language):
-        if language not in self._languages:
-            raise BadArgument("Invalid language! Supported languages are: `en`, `ar`")
-        if tafsir not in self._tafsirs[language]:
-            if tafsir in self._tafsirs["ar" if language == "en" else "en"]:
-                language = "ar" if language == "en" else "en"
-            else:
-                supported_tafsirs = str(list(self._tafsirs[language].keys())).strip('[]').replace('"', "").replace(",", "")
-                raise BadArgument(f"Invalid tafsir! Supported {language} tafsirs are: {supported_tafsirs}")
+    def is_supported(self, tafsir, language):
+        return tafsir in self._tafsirs.get(language)
 
-        self.language_id = self._languages[language]
-        self.tafsir_id = self._tafsirs[language][tafsir]
+    def get_url(self, req, tafsir, language):
+        language_id = self._languages[language]
+        tafsir_id = self._tafsirs[language][tafsir]
 
         request = req.split(':')
-        self.surah_num = int(request[0])
-        self.ayah_num = int(request[1])
+        surah_num = int(request[0])
+        ayah_num = int(request[1])
 
-    @property
-    def url(self):
         return self._url.format(
-            language_id=self.language_id,
-            tafsir_id=self.tafsir_id,
-            surah_num=self.surah_num,
-            ayah_num=self.ayah_num)
+            language_id=language_id,
+            tafsir_id=tafsir_id,
+            surah_num=surah_num,
+            ayah_num=ayah_num)
+
+    def parse(self, response):
+        return TafsirResponse(response)
 
 
 class TafsirResponse:

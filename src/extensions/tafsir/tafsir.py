@@ -1,15 +1,18 @@
+from typing import List
+
 import discord
 from aiohttp import ClientSession
 from discord.ext import commands
 from discord.ext.commands import BadArgument
 
 from extensions.tafsir.handlers.altafsir import AlTafsir
+from extensions.tafsir.tafsir_handler import TafsirHandler
 
 
 class Tafsir(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.handlers = [AlTafsir()]
+        self.handlers: List[TafsirHandler] = [AlTafsir()]
         self.session = ClientSession(loop=bot.loop)
 
     @commands.command()

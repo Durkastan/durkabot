@@ -1,7 +1,7 @@
 import bs4
 from bs4 import Tag, NavigableString
 
-from extensions.tafsir.tafsir_data import TafsirData
+from extensions.tafsir.tafsir_handler import TafsirData, TafsirHandler
 
 
 def remove_child(parent, child_index):
@@ -31,7 +31,7 @@ def extract_text(soup):
     return s[:ind + 1], s[ind + 1:]
 
 
-class AlTafsir:
+class AlTafsir(TafsirHandler):
     _url = ("https://www.altafsir.com/Tafasir.asp?"
             "tMadhNo=0&"
             "tDisplay=yes&"

@@ -9,18 +9,19 @@ from extensions.tafsir.handlers.altafsir import AlTafsir
 class Tafsir(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.handler = AlTafsir()
+        self.handlers = [AlTafsir()]
         self.session = ClientSession(loop=bot.loop)
 
     @commands.command()
     async def tafsir(self, ctx, req, tafsir, language='en'):
-        if not self.handler.is_supported(tafsir, language):
-            tafsirs = self.handler._tafsirs.keys()
-            raise BadArgument("Invalid tafsir! Supported tafsirs are: " + tafsirs)
+        handler = self.get_handler_with_support(tafsir, language)
 
-        url = self.handler.get_url(req, tafsir, language)
+        if not handler:
+            raise BadArgument("Unsupported tafsir! Supported tafsirs are: ")
+
+        url = handler.get_url(req, tafsir, language)
         response = await self.fetch(url)
-        data = self.handler.parse(response)
+        data = handler.parse(response)
 
         embed = self.make_embed(data, url, req)
         await ctx.send(embed=embed)
@@ -28,6 +29,12 @@ class Tafsir(commands.Cog):
     async def fetch(self, url):
         async with self.session.get(url) as r:
             return await r.text()
+
+    def get_handler_with_support(self, tafsir, language):
+        for handler in self.handlers:
+            if handler.is_supported(tafsir, language):
+                return handler
+        return None
 
     @staticmethod
     def make_embed(data, url, req):

@@ -16,17 +16,17 @@ class TafsirHandler(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_url(self, req, tafsir, language) -> str:
-        pass
-
-    @abc.abstractmethod
-    def parse(self, response) -> TafsirData:
-        pass
-
-    @abc.abstractmethod
     def tafsirs(self):
         pass
 
     @abc.abstractmethod
     def languages(self):
+        pass
+
+    @abc.abstractmethod
+    def get_url(self, req, tafsir, language) -> str:
+        pass
+
+    @abc.abstractmethod
+    def parse(self, response) -> TafsirData:
         pass

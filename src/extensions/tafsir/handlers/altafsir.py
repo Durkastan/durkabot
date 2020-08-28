@@ -139,6 +139,12 @@ class AlTafsir(TafsirHandler):
     def is_supported(self, tafsir, language):
         return language in self._tafsirs.get(tafsir)
 
+    def tafsirs(self):
+        return self._tafsirs.keys()
+
+    def languages(self):
+        return self._languages.keys()
+
     def get_url(self, req, tafsir, language):
         language_id = self._languages[language]
         tafsir_id = self._tafsirs[tafsir][language]
@@ -161,9 +167,3 @@ class AlTafsir(TafsirHandler):
         surah_name = soup.find("select", {"id": "SoraName"}).find("option", {"selected": ""}).text.split()[1]
 
         return TafsirData(ayah_text, tafsir_text, tafsir_name, surah_name)
-
-    def tafsirs(self):
-        return self._tafsirs.keys()
-
-    def languages(self):
-        return self._languages.keys()

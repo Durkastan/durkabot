@@ -16,6 +16,13 @@ class Hadith(Cog):
 
     @commands.command()
     async def hadith(self, ctx, book_name, ref, language='en'):
+        """Al-Hadith ush-Sharif
+
+        Args:
+            book_name: Name of hadith book to quote.
+            ref: Hadith number as per sunnah.com, in the format i:j, or i for qudsi and nawawi.
+            language(optional): The language to fetch the hadith in. Specify in 2-letter format. e.g: en
+        """
         if book_name not in hadith_book_list:
             readable_book_list = str(hadith_book_list).strip("[]").replace("'", '')
             await ctx.send(f'Invalid hadith book! These are currently supported: \n`{readable_book_list}`')

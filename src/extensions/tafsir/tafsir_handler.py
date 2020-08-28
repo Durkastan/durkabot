@@ -12,15 +12,15 @@ class TafsirData:
 
 class TafsirHandler(abc.ABC):
     @abc.abstractmethod
-    def is_supported(self, tafsir, language):
+    def is_supported(self, tafsir, language) -> bool:
         pass
 
     @abc.abstractmethod
-    def get_url(self, req, tafsir, language):
+    def get_url(self, req, tafsir, language) -> str:
         pass
 
     @abc.abstractmethod
-    def parse(self, response):
+    def parse(self, response) -> TafsirData:
         pass
 
     @abc.abstractmethod

@@ -5,14 +5,15 @@ from aiohttp import ClientSession
 from discord.ext import commands
 from discord.ext.commands import BadArgument
 
+from extensions.tafsir.handlers.alim import Alim
 from extensions.tafsir.handlers.altafsir import AlTafsir
-from extensions.tafsir.tafsir_handler import TafsirHandler
+from extensions.tafsir.tafsir_handler import TafsirHandler, TafsirData
 
 
 class Tafsir(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.handlers: List[TafsirHandler] = [AlTafsir()]
+        self.handlers: List[TafsirHandler] = [AlTafsir(), Alim()]
         self.session = ClientSession(loop=bot.loop)
 
     @commands.command()
@@ -89,15 +90,21 @@ class Tafsir(commands.Cog):
         return self.supported_languages_for(tafsir)[0]
 
     @staticmethod
-    def make_embed(data, url, req):
+    def make_embed(data: TafsirData, url, req):
+        num_chars = 0
         e = discord.Embed(title=data.tafsir_name + " | " + data.surah_name + " | " + req,
                           color=35810, description=f"[link]({url})\n\n" + data.ayah_text)
+        num_chars += len(e.title) + len(e.description)
+
         txt = data.tafsir_text
-        while len(txt) > 0 and not txt.isspace():
+        while len(txt) > 0 and txt.isalpha() and num_chars < 5000:
             ind = txt.rfind(' ', 700, 1000)
             part = txt[:ind]
             txt = txt[ind:]
             e.add_field(name='​', value=part, inline=False)  # that's a zero width space
+            num_chars += len(part)
+        if num_chars >= 5000:
+            e.add_field(name='​', value="(Text too long for discord, see link above for full text)", inline=False)  # that's a zero width space
         e.set_thumbnail(url="https://i.imgur.com/BOJeLJF.png")
         return e
 

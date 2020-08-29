@@ -26,7 +26,7 @@ class Tafsir(commands.Cog):
             language(optional): The language of tafsir to return, in 2-letter format. e.g: en
         """
         if tafsir is None and language is None:
-            tafsir = "ibnkathir"
+            tafsir = "jalalayn"
             language = 'en'
 
         elif tafsir not in self.supported_tafsirs():

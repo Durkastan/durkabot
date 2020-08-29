@@ -3,6 +3,19 @@ import bs4
 from extensions.tafsir.tafsir_handler import TafsirHandler, TafsirData
 
 
+def clean_text(text):
+    return text.replace('`', "'") \
+        .replace('bin', 'b. ') \
+        .replace('Hadith', 'hadith') \
+        .replace('Messenger of Allah', 'Messenger of Allah ﷺ') \
+        .replace('«', '#«') \
+        .replace('»', '»#') \
+        .replace(' "', ' #"') \
+        .replace('." ', '."#') \
+        .replace('﴿', '#') \
+        .replace('﴾', '#')
+
+
 class Alim(TafsirHandler):
     _url = "http://www.alim.org/library/quran/AlQuran-tafsir/{tafsir_id}/{surah_num}/{ayah_num}"
 
@@ -41,7 +54,7 @@ class Alim(TafsirHandler):
 
         content =  soup.find("div", {'id': "clip-all-content"})
         if content is not None:  # no tafsir found, e.g: 12:55
-            tafsir_text = content.get_text().strip().replace("`", "\`")
+            tafsir_text = clean_text(content.get_text().strip())
 
             header = soup.find("div", {"class": "view-header"})
 

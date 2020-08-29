@@ -1,3 +1,4 @@
+from string import ascii_letters
 from typing import List
 
 import discord
@@ -8,6 +9,16 @@ from discord.ext.commands import BadArgument
 from extensions.tafsir.handlers.alim import Alim
 from extensions.tafsir.handlers.altafsir import AlTafsir
 from extensions.tafsir.tafsir_handler import TafsirHandler, TafsirData
+
+
+arabic_letters = "ابجد هوز حطي كلمن سعفص قرشت ثخذ وضظغ"
+
+
+def has_letters(txt):
+    for x in txt:
+        if x in ascii_letters or x in arabic_letters:
+            return True
+    return False
 
 
 class Tafsir(commands.Cog):
@@ -97,7 +108,7 @@ class Tafsir(commands.Cog):
         num_chars += len(e.title) + len(e.description)
 
         txt = data.tafsir_text
-        while len(txt) > 0 and txt.isalpha() and num_chars < 5000:
+        while len(txt) > 0 and has_letters(txt) and num_chars < 5000:
             ind = txt.rfind(' ', 700, 1000)
             part = txt[:ind]
             txt = txt[ind:]

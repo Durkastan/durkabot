@@ -28,3 +28,7 @@ class Misc(Cog):
             data = data['embed']
         e = Embed.from_dict(data)
         await ctx.send(embed=e)
+
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send(f'Pong! {round(self.bot.latency * 1000)}ms')

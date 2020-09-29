@@ -5,6 +5,7 @@ import sys
 import traceback
 import os
 
+from discord import Intents
 from discord.ext import commands
 from discord.ext.commands import UserInputError, MissingPermissions, BotMissingPermissions
 
@@ -30,6 +31,7 @@ class Bot(commands.Bot):
             command_prefix=get_prefix,
             description=DESCRIPTION,
             loop=asyncio.new_event_loop(),
+            intents=Intents.all()
         )
 
         signal.signal(signal.SIGTERM, lambda: self.loop.create_task(self.exit()))

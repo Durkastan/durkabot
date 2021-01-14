@@ -5,8 +5,9 @@ from discord.ext.commands import Cog
 from extensions.hadith.hadithfetcher import HadithFetcher
 from extensions.hadith.hadithresponse import HadithResponse
 
-hadith_book_list = ['bukhari', 'muslim', 'tirmidhi', 'abudawud', 'nasai', 'ibnmajah', 'malik', 'riyadussaliheen',
-                    'adab', 'bulugh', 'qudsi', 'nawawi']
+hadith_book_list = ['bukhari', 'muslim', 'nasai', 'abudawud', 'tirmidhi', 'ibnmajah', 'malik', 'ahmad',
+                    'riyadussaliheen', 'mishkat', 'adab', 'shamail', 'bulugh', 'hisn', 'qudsi', 'nawawi',
+                    'shahwaliullah']
 
 
 class Hadith(Cog):
@@ -20,7 +21,7 @@ class Hadith(Cog):
 
         Args:
             book_name: Name of hadith book to quote.
-            ref: Hadith number as per sunnah.com, in the format i:j, or i for qudsi and nawawi.
+            ref: Hadith number as per sunnah.com, in the format i:j, or i for collections of forty(Qudsi, Nawawi, Shahwaliullah).
             language(optional): The language to fetch the hadith in. Specify in 2-letter format. e.g: en
         """
         if book_name not in hadith_book_list:

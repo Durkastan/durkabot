@@ -1,3 +1,6 @@
+from typing import Union
+
+from discord import Message, Embed
 from discord.ext import commands
 from discord.ext.commands import Cog
 
@@ -20,11 +23,18 @@ class Tag(Cog):
         Args:
             key: Tag name. See the "tag list" subcommand
         """
-        await ctx.send(self.tag_keeper.get(key))
+        data = self.tag_keeper.get(key)
+        text = ''
+        embed = None
+        if isinstance(data, dict):
+            embed = Embed.from_dict(data)
+        else:
+            text = data
+        await ctx.send(text, embed=embed)
 
     @tag.command()
     @commands.has_permissions(kick_members=True)
-    async def create(self, ctx, key: str, *, value: str):
+    async def create(self, ctx, key: str, *, value: Union[Message, str]):
         """
         Create a new tag.
 
@@ -32,6 +42,11 @@ class Tag(Cog):
             key: Tag name. If it contains spaces, put it in quotes.
             value: Tag value.
         """
+        if isinstance(value, Message):
+            if len(value.embeds) > 0:
+                value = value.embeds[0].to_dict()
+            else:
+                value = value.content
         self.tag_keeper.create(key, value)
         await ctx.send(f'Tag `{key}` created.')
 

@@ -15,10 +15,16 @@ class Tag(Cog):
     async def cog_before_invoke(self, ctx):
         self.tag_keeper = TagKeeper(ctx.guild.id)
 
+    @Cog.listener()
+    async def on_message(self, message: Message):
+        if message.author != self.bot.user and message.guild is not None and message.content.startswith("dt "):
+            message.content = await self.bot.get_prefix(message) + "tag " + message.content[3:]
+            self.bot.dispatch("message", message)
+
     @commands.group(invoke_without_command=True)
     async def tag(self, ctx, *, key):
         """
-        Return text stored under tag.
+        Return text stored under tag. Shorthand: `dt (tagname)`
 
         Args:
             key: Tag name. See the "tag list" subcommand

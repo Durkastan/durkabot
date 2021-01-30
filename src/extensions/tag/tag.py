@@ -18,7 +18,9 @@ class Tag(Cog):
     @Cog.listener()
     async def on_message(self, message: Message):
         if message.author != self.bot.user and message.guild is not None and message.content.startswith("dt "):
-            message.content = await self.bot.get_prefix(message) + "tag " + message.content[3:]
+            prefix = await self.bot.get_prefix(message)
+            prefix = prefix[0] if isinstance(prefix, list) else prefix
+            message.content = prefix + "tag " + message.content[3:]
             self.bot.dispatch("message", message)
 
     @commands.group(invoke_without_command=True)

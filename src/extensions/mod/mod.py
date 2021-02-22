@@ -15,7 +15,7 @@ class Mod(Cog):
     @commands.command()
     @has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, reason: str = ''):
+    async def ban(self, ctx, member: discord.Member, *, reason: str = ''):
         """
         Swing your mighty Durkastani-made banhammer!
 
@@ -33,7 +33,7 @@ class Mod(Cog):
     @commands.command()
     @has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, reason: str = ''):
+    async def kick(self, ctx, member: discord.Member, *, reason: str = ''):
         """
         Polish your boot for this one.
 

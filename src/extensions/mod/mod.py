@@ -6,42 +6,47 @@ from common.permission import has_permissions
 
 
 class Mod(Cog):
+    dm_template = """You have been {0} from {1}"""
+    reason_snippet = " for: {0}"
+
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     @has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
-    async def ban(self, ctx, *members: discord.Member):
+    async def ban(self, ctx, member: discord.Member, reason: str = ''):
         """
         Swing your mighty Durkastani-made banhammer!
 
         Args:
-            members: A list of users. Just mention!
+            member: Your lucky user. Just mention!
+            reason(optional):
         """
-        if members:
-            for member in members:
-                await ctx.guild.ban(member)
-            await ctx.send("Banned.", delete_after=5)
-        else:
-            await ctx.send("Whaddaya mean, 'just ban anyone?'", delete_after=5)
+        dm = self.dm_template.format("banned", ctx.guild.name)
+        if reason:
+            dm += self.reason_snippet.format(reason)
+        await member.send(dm)
+        await ctx.guild.ban(member, reason=reason)
+        await ctx.send("Banned.", delete_after=5)
 
     @commands.command()
     @has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
-    async def kick(self, ctx, *members: discord.Member):
+    async def kick(self, ctx, member: discord.Member, reason: str = ''):
         """
         Polish your boot for this one.
 
         Args:
-            members: A list of users. Just mention!
+            member: Your lucky user. Just mention!
+            reason(optional):
         """
-        if members:
-            for member in members:
-                await ctx.guild.kick(member)
-            await ctx.send('Booted.', delete_after=5)
-        else:
-            await ctx.send("Sorry chief, can't boot.", delete_after=5)
+        dm = self.dm_template.format("kicked", ctx.guild.name)
+        if reason:
+            dm += self.reason_snippet.format(reason)
+        await member.send(dm)
+        await ctx.guild.kick(member, reason=reason)
+        await ctx.send('Booted.', delete_after=5)
 
     @commands.command()
     @has_permissions(manage_messages=True)

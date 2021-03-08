@@ -29,14 +29,16 @@ class Warn(Cog):
             reason(optional): For safekeeping.
         """
         action, num_warns = self.warner.warn(member, reason, ctx.channel.id, ctx.message.id, ctx.author.id)
+        txt = f'{member.mention} You have been issued a warning'
+        txt += (f' for the following: ```{reason}```' if reason else '.')
+        txt += f" {num_warns}/3"
+        await ctx.send(txt)
+
         if action == AfterWarnAction.REPLY_KICK:
             await ctx.send("Warned too many times, eh? You get the boot. Good riddance.")
             await ctx.guild.kick(member)
-        elif action == AfterWarnAction.REPLY:
-            txt = f'{member.mention} You have been issued a warning'
-            txt += (f' for the following: ```{reason}```' if reason else '.')
-            txt += f" {num_warns}/3"
-            await ctx.send(txt)
+
+        await ctx.message.delete()
 
     @commands.command()
     @has_permissions(kick_members=True)

@@ -27,8 +27,12 @@ class Mod(Cog):
         if reason:
             dm += self.reason_snippet.format(reason)
         await member.send(dm)
-        await ctx.guild.ban(member, reason=reason)
-        await ctx.send("Banned.", delete_after=5)
+        await ctx.guild.ban(member, reason=reason, delete_message_days=0)
+
+        result = f"{member.mention} was banned"
+        if reason:
+            result += f" for: {reason}"
+        await ctx.send(result)
 
     @commands.command()
     @has_permissions(kick_members=True)

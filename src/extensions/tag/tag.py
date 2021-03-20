@@ -38,6 +38,7 @@ class Tag(Cog):
             embed = Embed.from_dict(data)
         else:
             text = data
+        await ctx.message.delete()
         await ctx.send(text, embed=embed)
 
     @tag.command()

@@ -38,8 +38,6 @@ class Warn(Cog):
             await ctx.send("Warned too many times, eh? You get the boot. Good riddance.")
             await ctx.guild.kick(member)
 
-        await ctx.message.delete()
-
     @commands.command()
     @has_permissions(kick_members=True)
     async def warns(self, ctx, member: discord.Member):

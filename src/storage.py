@@ -21,4 +21,4 @@ class StorageHandler:
 
     @classmethod
     def write_config(cls, guild_id, document):
-        cls.guild_collection(guild_id)['config'].update_one({}, document)
+        cls.guild_collection(guild_id)['config'].replace_one({}, document)

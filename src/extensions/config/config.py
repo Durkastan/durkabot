@@ -23,6 +23,6 @@ class Config(Cog):
             return
         doc = ctx.config
         doc[key] = type(DEFAULT_CONFIG[key])(value)
-        ctx.write_config(ctx.guild.id, doc)
+        ctx.write_config(doc)
 
         await ctx.send(f"{key} set to {value}")
